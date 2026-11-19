@@ -278,6 +278,7 @@
             "success"
           );
   
+          window.TicoTico.analytics?.track("generate_lead", { form_type: type });
           form.reset();
         } else {
           showFeedback(

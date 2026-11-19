@@ -745,6 +745,7 @@
       currentPage = 1;
   
       render();
+      window.TicoTico.analytics?.track("kit_category_view", { product_category: categoryId });
     }
   
     /* ==========================================
@@ -785,6 +786,12 @@
         result = store.removeProduct(product.id);
       } else {
         return;
+      }
+      if (result.ok) {
+        window.TicoTico.analytics?.track(
+          action === "add" ? "kit_product_added" : "kit_product_removed",
+          { product_id: product.id, product_name: product.title.slice(0, 100) }
+        );
       }
   
       if (!result.ok) {
@@ -883,6 +890,10 @@
       currentPage = page;
   
       render();
+      window.TicoTico.analytics?.track("kit_catalog_page_view", {
+        product_category: currentCategory,
+        catalog_page: String(currentPage)
+      });
     }
   
     /* ==========================================

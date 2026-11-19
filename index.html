@@ -7,12 +7,48 @@
 
   <meta
     name="description"
-    content="Tico-Tico: nécessaires recheadas de mini produtos para acompanhar você no trabalho, nas viagens e no dia a dia."
+    content="Monte sua nécessaire com mini produtos de beleza, higiene e perfumaria. Conheça os kits para presente e o Clube Tico-Tico."
   >
 
+  <title>Tico-Tico | Nécessaires personalizáveis e mini produtos</title>
+  <link rel="canonical" href="https://ticoticoclub.com.br/">
+  <meta name="robots" content="max-image-preview:large">
   <meta name="theme-color" content="#6A3B66">
 
-  <title>Tico-Tico | Pequenos cuidados, onde a vida acontece</title>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Tico-Tico">
+  <meta property="og:url" content="https://ticoticoclub.com.br/">
+  <meta property="og:title" content="Tico-Tico | Nécessaires personalizáveis e mini produtos">
+  <meta property="og:description" content="Monte sua nécessaire com mini produtos de beleza, higiene e perfumaria. Conheça os kits para presente e o Clube Tico-Tico.">
+  <meta property="og:image" content="https://ticoticoclub.com.br/assets/banner-kit.png">
+  <meta property="og:image:width" content="2880">
+  <meta property="og:image:height" content="1240">
+  <meta property="og:image:alt" content="Banner da Tico-Tico com uma nécessaire e mini produtos de beleza e cuidado">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://ticoticoclub.com.br/#website",
+          "url": "https://ticoticoclub.com.br/",
+          "name": "Tico-Tico",
+          "inLanguage": "pt-BR",
+          "publisher": { "@id": "https://ticoticoclub.com.br/#organization" }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://ticoticoclub.com.br/#organization",
+          "url": "https://ticoticoclub.com.br/",
+          "name": "Tico-Tico",
+          "logo": "https://ticoticoclub.com.br/assets/tico-tico-vetorizado.svg"
+        }
+      ]
+    }
+  </script>
 
   <link
     rel="icon"
@@ -32,8 +68,10 @@
   <!-- Estilos -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/builder.css">
+  <link rel="stylesheet" href="css/analytics.css">
 
   <!-- Configurador e navegação -->
+  <script src="js/analytics.js" defer></script>
   <script src="js/catalog.js" defer></script>
   <script src="js/builder-state.js" defer></script>
   <script src="js/view-models.js" defer></script>
@@ -58,7 +96,7 @@
   <!-- CABEÇALHO                 -->
   <!-- ========================= -->
 
-  <header class="site-header">
+  <header class="site-header" data-analytics-origin="menu">
     <nav class="nav container" aria-label="Menu principal">
 
       <a href="#inicio" class="brand" aria-label="Tico-Tico — início">
@@ -87,7 +125,7 @@
         <a href="#como-funciona">Como funciona</a>
       </div>
 
-      <a href="#monte" class="button button--primary nav__cta">
+      <a href="#monte" class="button button--primary nav__cta" data-analytics-origin="botao_cabecalho">
         Monte a sua Tico-Tico
       </a>
 
@@ -100,9 +138,9 @@
     <!-- HERO / CARROSSEL         -->
     <!-- ========================= -->
 
-    <section class="hero" id="inicio" aria-label="Apresentação da Tico-Tico">
+    <section class="hero" id="inicio" aria-label="Apresentação da Tico-Tico" data-analytics-origin="carrossel">
 
-      <div class="campaign-slide" style="--action-top: 84.34%" data-hero-slide>
+      <div class="campaign-slide" style="--action-top: 84.34%" data-hero-slide data-campaign="kit">
         <div class="campaign-copy">
           <span class="eyebrow">Pequena por fora, gigante por dentro</span>
           <h1 class="hero__title">A parceira perfeita da sua <em>rotina.</em></h1>
@@ -114,7 +152,7 @@
         </picture>
         <a class="campaign-action button button--olive" href="#monte">Monte seu kit <span aria-hidden="true">→</span></a>
       </div>
-      <div class="campaign-slide" style="--action-top: 77.41%" data-hero-slide hidden>
+      <div class="campaign-slide" style="--action-top: 77.41%" data-hero-slide data-campaign="clube" hidden>
         <div class="campaign-copy">
           <span class="eyebrow">Clube Tico-Tico</span>
           <h2 class="hero__title">Assine a <em>Tico-Tico.</em></h2>
@@ -126,7 +164,7 @@
         </picture>
         <a class="campaign-action button button--olive" href="#clube">Conheça o clube <span aria-hidden="true">→</span></a>
       </div>
-      <div class="campaign-slide" style="--action-top: 85.46%" data-hero-slide hidden>
+      <div class="campaign-slide" style="--action-top: 85.46%" data-hero-slide data-campaign="presentes" hidden>
         <div class="campaign-copy">
           <span class="eyebrow">Para presentear</span>
           <h2 class="hero__title">Um presente pequeno. <em>Um sorriso enorme.</em></h2>
@@ -180,7 +218,7 @@
           <div class="highlight__icon" aria-hidden="true">✿</div>
 
           <div>
-            <h2>Personalize do seu jeito</h2>
+            <h2>Nécessaires personalizáveis</h2>
             <p>
               Escolha o modelo da nécessaire e monte com os
               minis que mais combinam com a sua rotina.
@@ -204,7 +242,7 @@
           <div class="highlight__icon" aria-hidden="true">♡</div>
 
           <div>
-            <h2>Presenteie com cuidado</h2>
+            <h2>Kits para presente</h2>
             <p>
               Nécessaires prontas e personalizáveis para
               surpreender quem você ama.
@@ -791,7 +829,7 @@
     <!-- CLUBE TICO-TICO           -->
     <!-- ========================= -->
 
-    <section class="club-section section" id="clube">
+    <section class="club-section section" id="clube" data-analytics-origin="clube">
 
       <div class="container club-layout">
 
@@ -841,7 +879,7 @@
     <!-- PRESENTES                 -->
     <!-- ========================= -->
 
-    <section class="gift-section section" id="presentes">
+    <section class="gift-section section" id="presentes" data-analytics-origin="presentes">
 
       <div class="container gift-layout">
 
@@ -951,7 +989,7 @@
   <!-- RODAPÉ                    -->
   <!-- ========================= -->
 
-  <footer class="site-footer">
+  <footer class="site-footer" data-analytics-origin="rodape">
 
     <div class="container footer-grid">
 
@@ -1004,9 +1042,22 @@
         Ainda não realizamos vendas.
       </p>
 
+      <button type="button" class="analytics-preferences" id="analytics-preferences" aria-controls="analytics-banner" aria-expanded="false">
+        Preferências de cookies
+      </button>
+
     </div>
 
   </footer>
+
+  <aside class="analytics-banner" id="analytics-banner" aria-labelledby="analytics-title" hidden>
+    <h2 id="analytics-title">Cookies de análise</h2>
+    <p>Usamos o Google Analytics para entender quais seções e botões recebem mais atenção. Você pode mudar sua escolha no rodapé.</p>
+    <div class="analytics-banner__actions">
+      <button type="button" class="button button--outline" id="analytics-reject">Recusar</button>
+      <button type="button" class="button button--outline" id="analytics-accept">Aceitar</button>
+    </div>
+  </aside>
 
 </body>
 </html>

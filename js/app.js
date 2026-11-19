@@ -109,6 +109,10 @@
         current = (current + direction + slides.length) % slides.length;
         slides[current].hidden = false;
         byId("carousel-current").textContent = `${current + 1} / ${slides.length}`;
+        app.analytics?.track("campaign_view", {
+          campaign_name: slides[current].dataset.campaign,
+          click_direction: direction === 1 ? "proximo" : "anterior"
+        });
       }
       onClick("carousel-prev", () => changeSlide(-1));
       onClick("carousel-next", () => changeSlide(1));
@@ -369,6 +373,7 @@
         window.location.hash = "monte";
       }
       section.classList.toggle("in-progress", stepNumber > 1);
+      const previousStep = currentStep;
       currentStep = stepNumber;
   
       renderCurrentStep();
@@ -377,6 +382,9 @@
       const activeStep = STEPS.find(
         step => step.number === stepNumber
       );
+      if (previousStep !== stepNumber) {
+        app.analytics?.track("kit_step_view", { kit_step: activeStep.elementId });
+      }
   
       const stepElement = byId(
         activeStep.elementId
@@ -415,6 +423,7 @@
   
     function initStepNavigation() {
       function exitKit() {
+        app.analytics?.track("kit_exit", { kit_step: STEPS[currentStep - 1].elementId });
         app.store.reset();
         byId("notify-form").reset();
         byId("notify-feedback").textContent = "";
