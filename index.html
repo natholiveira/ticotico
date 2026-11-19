@@ -1,0 +1,1012 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta
+    name="description"
+    content="Tico-Tico: nécessaires recheadas de mini produtos para acompanhar você no trabalho, nas viagens e no dia a dia."
+  >
+
+  <meta name="theme-color" content="#6A3B66">
+
+  <title>Tico-Tico | Pequenos cuidados, onde a vida acontece</title>
+
+  <link
+    rel="icon"
+    type="image/svg+xml"
+    href="assets/tico-tico-vetorizado.svg"
+  >
+
+  <!-- Fontes oficiais -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/builder.css">
+
+  <!-- Configurador e navegação -->
+  <script src="js/catalog.js" defer></script>
+  <script src="js/builder-state.js" defer></script>
+  <script src="js/view-models.js" defer></script>
+  <script src="js/view-categories.js" defer></script>
+  <script src="js/view-products.js" defer></script>
+  <script src="js/view-cart.js" defer></script>
+  <script src="js/forms.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+
+<body>
+
+  <!-- ========================= -->
+  <!-- BARRA DE ANÚNCIO          -->
+  <!-- ========================= -->
+
+  <div class="announcement">
+    Pequenos cuidados para levar por aí. Do seu jeito, onde você estiver.
+  </div>
+
+  <!-- ========================= -->
+  <!-- CABEÇALHO                 -->
+  <!-- ========================= -->
+
+  <header class="site-header">
+    <nav class="nav container" aria-label="Menu principal">
+
+      <a href="#inicio" class="brand" aria-label="Tico-Tico — início">
+        <img
+          src="assets/tico-tico-nome-vetorizado.svg"
+          alt="Tico-Tico"
+          class="brand__logo"
+        >
+      </a>
+
+      <button
+        type="button"
+        class="mobile-menu-toggle"
+        id="mobile-menu-toggle"
+        aria-label="Abrir menu"
+        aria-controls="nav-links"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+
+      <div class="nav__links" id="nav-links">
+        <a href="#monte">Monte a sua</a>
+        <a href="#clube">Clube Tico-Tico</a>
+        <a href="#presentes">Presentes</a>
+        <a href="#como-funciona">Como funciona</a>
+      </div>
+
+      <a href="#monte" class="button button--primary nav__cta">
+        Monte a sua Tico-Tico
+      </a>
+
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ========================= -->
+    <!-- HERO / CARROSSEL         -->
+    <!-- ========================= -->
+
+    <section class="hero" id="inicio" aria-label="Apresentação da Tico-Tico">
+
+      <div class="campaign-slide" style="--action-top: 84.34%" data-hero-slide>
+        <div class="campaign-copy">
+          <span class="eyebrow">Pequena por fora, gigante por dentro</span>
+          <h1 class="hero__title">A parceira perfeita da sua <em>rotina.</em></h1>
+          <p class="hero__description">Uma nécessaire recheada com mini produtos de múltiplas marcas, para te acompanhar no trabalho, na viagem, na academia, no dia a dia e em todos os seus planos.</p>
+        </div>
+        <picture>
+          <source media="(min-width: 761px)" srcset="assets/banner-kit.png">
+          <img src="assets/kit-com-minis.png" alt="Nécessaire Tico-Tico com mini produtos">
+        </picture>
+        <a class="campaign-action button button--olive" href="#monte">Monte seu kit <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="campaign-slide" style="--action-top: 77.41%" data-hero-slide hidden>
+        <div class="campaign-copy">
+          <span class="eyebrow">Clube Tico-Tico</span>
+          <h2 class="hero__title">Assine a <em>Tico-Tico.</em></h2>
+          <p class="hero__description">Todo mês, sua bolsa ganha 5 novos minis de beleza e cuidado. Experimente um produto que desperta sua curiosidade, descubra seu próximo favorito e leve um pouquinho de cada descoberta com você.</p>
+        </div>
+        <picture>
+          <source media="(min-width: 761px)" srcset="assets/banner-clube.png">
+          <img src="assets/clube-cinco-minis.png" alt="Caixa da assinatura com cinco minis">
+        </picture>
+        <a class="campaign-action button button--olive" href="#clube">Conheça o clube <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="campaign-slide" style="--action-top: 85.46%" data-hero-slide hidden>
+        <div class="campaign-copy">
+          <span class="eyebrow">Para presentear</span>
+          <h2 class="hero__title">Um presente pequeno. <em>Um sorriso enorme.</em></h2>
+          <p class="hero__description">Escolha quantas nécessaires quiser. Cada uma já vem com cinco minis, pronta para mimar alguém especial, agradecer aos convidados do casamento ou presentear a equipe no fim do ano.</p>
+        </div>
+        <picture>
+          <source media="(min-width: 761px)" srcset="assets/banner-presentes.png">
+          <img src="assets/presentes-cinco-minis.png" alt="Nécessaire de tecido Tico-Tico com cinco minis para presente">
+        </picture>
+        <a class="campaign-action button button--olive" href="#presentes">Conheça os presentes <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="carousel-controls">
+
+            <button
+              type="button"
+              id="carousel-prev"
+              class="carousel-arrow"
+              aria-label="Imagem anterior"
+            >
+              ←
+            </button>
+
+            <div
+              class="carousel-indicator"
+              id="carousel-indicator"
+              aria-live="polite"
+            >
+              <span id="carousel-current">1 / 3</span>
+            </div>
+
+            <button
+              type="button"
+              id="carousel-next"
+              class="carousel-arrow"
+              aria-label="Próxima imagem"
+            >
+              →
+            </button>
+      </div>
+    </section>
+
+    <!-- ========================= -->
+    <!-- TRÊS DESTAQUES           -->
+    <!-- ========================= -->
+
+    <section class="highlights" aria-label="Conheça a Tico-Tico">
+
+      <div class="container highlights__grid">
+
+        <article class="highlight">
+          <div class="highlight__icon" aria-hidden="true">✿</div>
+
+          <div>
+            <h2>Personalize do seu jeito</h2>
+            <p>
+              Escolha o modelo da nécessaire e monte com os
+              minis que mais combinam com a sua rotina.
+            </p>
+          </div>
+        </article>
+
+        <article class="highlight">
+          <div class="highlight__icon" aria-hidden="true">✧</div>
+
+          <div>
+            <h2>Clube Tico-Tico</h2>
+            <p>
+              Receba todo mês 5 novos mini produtos para
+              renovar a sua nécessaire.
+            </p>
+          </div>
+        </article>
+
+        <article class="highlight">
+          <div class="highlight__icon" aria-hidden="true">♡</div>
+
+          <div>
+            <h2>Presenteie com cuidado</h2>
+            <p>
+              Nécessaires prontas e personalizáveis para
+              surpreender quem você ama.
+            </p>
+          </div>
+        </article>
+
+      </div>
+
+    </section>
+
+    <!-- ========================= -->
+    <!-- COMO FUNCIONA            -->
+    <!-- ========================= -->
+
+    <section id="como-funciona" class="how-it-works section">
+
+      <div class="container">
+
+        <header class="section-heading">
+          <span class="eyebrow">Nossa ideia</span>
+
+          <h2>
+            Pequenos cuidados,
+            <em>grandes facilidades.</em>
+          </h2>
+
+          <p>
+            A Tico-Tico nasceu para reunir os pequenos essenciais
+            que fazem diferença no dia a dia.
+            Você escolhe, combina e leva tudo com você.
+          </p>
+        </header>
+
+        <div class="how-it-works__grid">
+
+          <article class="info-card">
+            <span class="info-card__number">01</span>
+            <h3>Escolha seu modelo</h3>
+            <p>
+              Transparente, de tela ou de tecido.
+              Encontre a nécessaire que combina com você.
+            </p>
+          </article>
+
+          <article class="info-card">
+            <span class="info-card__number">02</span>
+            <h3>Monte seu mix</h3>
+            <p>
+              Misture mini produtos de beleza, perfumaria,
+              higiene e praticidade, do seu jeito.
+            </p>
+          </article>
+
+          <article class="info-card">
+            <span class="info-card__number">03</span>
+            <h3>Leve por aí</h3>
+            <p>
+              Uma companheira de bolsa para o trabalho,
+              a viagem, o passeio e a vida acontecendo.
+            </p>
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================= -->
+    <!-- MONTE SUA TICO-TICO       -->
+    <!-- ========================= -->
+
+    <section class="builder-section section" id="monte" aria-label="Monte seu kit">
+
+      <div class="container">
+
+        <header class="builder-header">
+          <h2><span>Monte seu kit</span></h2>
+
+          <ol id="builder-steps" class="builder-progress" aria-label="Progresso da montagem">
+            <li class="is-active" aria-current="step" data-progress="1">Modelo</li>
+            <li data-progress="2">Quantidade e tipos</li>
+            <li data-progress="3">Produtos</li>
+            <li data-progress="4">Carrinho</li>
+            <li data-progress="5">Finalizar</li>
+          </ol>
+        </header>
+
+        <div id="builder-app" class="builder-app">
+
+          <!-- ===================== -->
+          <!-- ETAPA 1: MODELO       -->
+          <!-- ===================== -->
+
+          <section
+            class="builder-step is-active"
+            id="step-model"
+            data-step="1"
+            aria-labelledby="step-model-title"
+          >
+            <div class="builder-step__body">
+              <div class="model-layout">
+
+                <!-- Foto grande à esquerda -->
+                <div class="model-preview">
+
+                  <div class="model-preview__image-container">
+                    <img
+                      id="selected-model-image"
+                      src="assets/Necessaire Transparente Tico-Tico.png"
+                      alt="Nécessaire transparente Tico-Tico"
+                    >
+                  </div>
+
+                  <div class="model-preview__description">
+
+                    <h3 id="selected-model-name">
+                      Nécessaire Transparente
+                    </h3>
+
+                    <p id="selected-model-description">
+                      Prática, leve e cheia de charme.
+                      A nécessaire transparente deixa seus
+                      pequenos essenciais sempre à vista,
+                      facilitando a organização da bolsa
+                      e acompanhando você para onde for.
+                    </p>
+
+
+                  </div>
+
+                </div>
+
+                <!-- Opções à direita -->
+                <div class="model-selection">
+
+                  <h3 id="step-model-title">Monte seu kit</h3>
+                  <p class="model-selection__prompt">Vamos montar sua nécessaire? Escolha seu modelo e os minis que vão com você, da bolsa do dia a dia à mala de viagem.</p>
+
+                  <div id="model-options" class="model-options">
+
+                    <button
+                      type="button"
+                      class="model-option is-selected"
+                      data-model="transparente"
+                      aria-pressed="true"
+                    >
+                      <img
+                        src="assets/Necessaire Transparente Tico-Tico.png"
+                        alt=""
+                      >
+                      <span>Transparente</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      class="model-option"
+                      data-model="tela"
+                      aria-pressed="false"
+                    >
+                      <img
+                        src="assets/Necessaire de Tela Tico-Tico.png"
+                        alt=""
+                      >
+                      <span>Tela</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      class="model-option"
+                      data-model="tecido"
+                      aria-pressed="false"
+                    >
+                      <img
+                        src="assets/Necessaire-tecido.png"
+                        alt=""
+                      >
+                      <span>Tecido</span>
+                    </button>
+
+                  </div>
+
+                  <h3 class="model-selection__subtitle">
+                    Montagem
+                  </h3>
+
+                  <div class="assembly-modes">
+
+                    <button
+                      type="button"
+                      class="assembly-mode is-selected"
+                      id="mode-manual"
+                      aria-pressed="true"
+                    >
+                      <strong>Seleção manual</strong>
+                      <span>Escolha um a um os produtos que vão na sua nécessaire.</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      class="assembly-mode"
+                      id="mode-ai"
+                      disabled
+                      aria-disabled="true"
+                    >
+                      <strong>Com ajuda da IA</strong>
+                      <span>Conte como é sua rotina e receba sugestões de minis para montar seu kit.</span>
+                      <small>Em breve</small>
+                    </button>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+            <div class="builder-actions builder-actions--end">
+
+              <button
+                type="button"
+                class="button button--olive"
+                id="model-next"
+              >
+                Avançar →
+              </button>
+
+            </div>
+
+          </section>
+
+          <!-- ===================== -->
+          <!-- ETAPA 2: TIPOS        -->
+          <!-- ===================== -->
+
+          <section
+            class="builder-step"
+            id="step-types"
+            data-step="2"
+            aria-labelledby="step-types-title"
+            hidden
+          >
+            <div class="builder-step__body">
+              <div class="types-panel">
+                <h3 id="step-types-title">Quantidade e tipos</h3>
+
+                <div class="quantity-selector" role="group" aria-labelledby="quantity-title">
+                  <p id="quantity-title" class="types-instruction">Quantos minis você quer levar?</p>
+                  <div id="quantity-options" class="choice-list">
+
+                    <button
+                      type="button"
+                      class="choice-button"
+                      data-quantity="5"
+                      aria-pressed="false"
+                    >5 produtos</button>
+
+                    <button
+                      type="button"
+                      class="choice-button"
+                      data-quantity="7"
+                      aria-pressed="false"
+                    >7 produtos</button>
+
+                    <button
+                      type="button"
+                      class="choice-button"
+                      data-quantity="10"
+                      aria-pressed="false"
+                    >10 produtos</button>
+
+                  </div>
+
+                </div>
+
+                <div class="type-selector">
+                  <div class="type-selector__heading">
+                    <h4>Quais tipos de produto?</h4>
+                    <span id="type-counter" class="product-counter" role="status" aria-atomic="true"><strong>0</strong> tipos selecionados</span>
+                  </div>
+                  <p class="types-instruction">Selecione os tipos que você quer no kit. Na próxima etapa, escolha os produtos.</p>
+                  <div id="type-groups" class="type-groups"></div>
+                </div>
+              </div>
+
+              <div
+                id="types-limit-message"
+                class="builder-alert builder-alert--purple"
+                role="status"
+                aria-live="polite"
+                hidden
+              ></div>
+            </div>
+
+            <div class="builder-actions">
+
+              <button
+                type="button"
+                class="button button--outline"
+                id="types-back"
+              >← Voltar</button>
+              <button type="button" class="button button--outline kit-exit">Sair</button>
+
+              <button
+                type="button"
+                class="button button--olive"
+                id="types-next"
+                disabled
+              >Escolher produtos →</button>
+
+            </div>
+
+          </section>
+
+          <!-- ===================== -->
+          <!-- ETAPA 3: PRODUTOS     -->
+          <!-- ===================== -->
+
+          <section
+            class="builder-step"
+            id="step-products"
+            data-step="3"
+            aria-label="Produtos"
+            hidden
+          >
+            <div class="builder-step__body">
+              <div class="product-toolbar">
+
+                <!-- Categorias selecionadas na etapa anterior -->
+                <div
+                  id="product-category-tabs"
+                  class="category-tabs"
+                  role="group"
+                  aria-label="Filtrar produtos por categoria"
+                ></div>
+
+                <div class="product-counter" aria-live="polite">
+                  <strong id="selected-units-count">0</strong>
+                  de
+                  <strong id="selected-units-limit">5</strong>
+                  produtos selecionados
+                </div>
+
+              </div>
+
+              <!-- Cards preenchidos pelo catálogo -->
+              <div id="products-grid" class="products-grid"></div>
+
+              <!-- Paginação -->
+              <nav
+                id="products-pagination"
+                class="pagination"
+                aria-label="Páginas de produtos"
+              ></nav>
+
+              <!-- Aviso de limite -->
+              <div
+                id="products-limit-message"
+                class="builder-alert builder-alert--purple"
+                role="status"
+                aria-live="polite"
+                hidden
+              ></div>
+            </div>
+
+            <div class="builder-actions">
+
+              <button
+                type="button"
+                class="button button--outline"
+                id="products-back"
+              >← Voltar</button>
+              <button type="button" class="button button--outline kit-exit">Sair</button>
+
+              <button
+                type="button"
+                class="button button--olive"
+                id="products-next"
+                disabled
+              >Ver meu carrinho →</button>
+
+            </div>
+
+          </section>
+
+          <!-- ===================== -->
+          <!-- ETAPA 4: CARRINHO     -->
+          <!-- ===================== -->
+
+          <section
+            class="builder-step"
+            id="step-cart"
+            data-step="4"
+            aria-labelledby="step-cart-title"
+            hidden
+          >
+            <div class="builder-step__body">
+              <header class="builder-step__header">
+
+                <span class="eyebrow">Sua seleção está quase pronta</span>
+
+                <h3 id="step-cart-title">
+                  Olha só o que vai na sua Tico-Tico!
+                </h3>
+
+                <p>
+                  Confira seus produtos favoritos,
+                  as quantidades e o modelo escolhido.
+                </p>
+
+              </header>
+
+              <div class="cart-layout">
+
+                <div id="cart-items" class="cart-items" role="region" aria-label="Produtos do carrinho" tabindex="0">
+                  <!-- Produtos agrupados por categoria -->
+                </div>
+
+                <aside class="cart-summary" aria-label="Resumo da seleção">
+
+                  <h4>Resumo da sua Tico-Tico</h4>
+
+                  <div class="cart-summary__row cart-summary__model">
+                    <strong id="cart-model">Nécessaire Transparente</strong>
+                    <img id="cart-model-image" class="cart-summary__photo"
+                      src="assets/Necessaire Transparente Tico-Tico.png" alt="">
+                  </div>
+
+                  <div class="cart-summary__row">
+                    <span>Quantidade escolhida</span>
+                    <strong id="cart-limit">5</strong>
+                  </div>
+
+                  <div class="cart-summary__row">
+                    <span>Total de minis</span>
+                    <strong id="cart-units">0</strong>
+                  </div>
+
+                  <p class="cart-summary__note">
+                    Esta é uma prévia da sua seleção.
+                    A Tico-Tico ainda está em fase de testes
+                    e não realiza vendas nesta página.
+                  </p>
+
+                </aside>
+
+              </div>
+            </div>
+
+            <div class="builder-actions">
+
+              <button
+                type="button"
+                class="button button--outline"
+                id="cart-back"
+              >← Voltar aos produtos</button>
+              <button type="button" class="button button--outline kit-exit">Sair</button>
+
+              <button
+                type="button"
+                class="button button--olive"
+                id="cart-next"
+              >Finalizar →</button>
+
+            </div>
+
+          </section>
+
+          <!-- ===================== -->
+          <!-- ETAPA 5: AVISE-ME     -->
+          <!-- ===================== -->
+
+          <section
+            class="builder-step"
+            id="step-notify"
+            data-step="5"
+            aria-labelledby="step-notify-title"
+            hidden
+          >
+            <div class="builder-step__body">
+              <div class="notify-layout">
+
+                <div class="notify-intro">
+
+                  <span class="eyebrow">Estamos criando asas</span>
+
+                  <h3 id="step-notify-title">
+                    Sua Tico-Tico está quase pronta
+                    para ganhar o mundo!
+                  </h3>
+
+                  <p>
+                    Nosso site está em fase de testes e construção.
+                    Estamos preparando tudo com carinho para
+                    transformar sua seleção em uma experiência real.
+                  </p>
+
+                  <p>
+                    Quer saber quando a Tico-Tico estiver pronta?
+                    Deixe seu e-mail e conte o que podemos melhorar.
+                  </p>
+
+                  <p class="notify-intro__compact" hidden>Quer saber quando a Tico-Tico estiver pronta? Deixe seu e-mail.</p>
+
+                </div>
+
+                <form id="notify-form" class="notify-form">
+
+                  <div class="form-field">
+                    <label for="notify-name">Seu nome</label>
+                    <input
+                      type="text"
+                      id="notify-name" maxlength="100"
+                      name="name"
+                      autocomplete="name"
+                      placeholder="Como podemos te chamar?"
+                      required
+                    >
+                  </div>
+
+                  <div class="form-field">
+                    <label for="notify-email">Seu melhor e-mail</label>
+                    <input
+                      type="email"
+                      id="notify-email" maxlength="254"
+                      name="email"
+                      autocomplete="email"
+                      placeholder="voce@exemplo.com"
+                      required
+                    >
+                  </div>
+
+                  <div class="form-field">
+                    <label for="notify-suggestions">
+                      O que você gostaria de ver na Tico-Tico?
+                    </label>
+                    <textarea
+                      id="notify-suggestions" maxlength="2000"
+                      name="suggestions"
+                      rows="3"
+                      placeholder="Sugestões de marcas, produtos, kits ou melhorias para o site."
+                    ></textarea>
+                  </div>
+
+                  <button type="submit" class="button button--olive">
+                    Tenho interesse →
+                  </button>
+
+
+
+                  <p
+                    id="notify-feedback"
+                    class="form-feedback"
+                    role="status"
+                    aria-live="polite"
+                  ></p>
+
+                </form>
+
+              </div>
+            </div>
+
+            <div class="builder-actions">
+
+              <button
+                type="button"
+                class="button button--outline"
+                id="notify-back"
+              >← Voltar ao carrinho</button>
+              <button type="button" class="button button--outline kit-exit">Sair</button>
+
+            </div>
+
+          </section>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================= -->
+    <!-- CLUBE TICO-TICO           -->
+    <!-- ========================= -->
+
+    <section class="club-section section" id="clube">
+
+      <div class="container club-layout">
+
+        <div class="club-content">
+
+          <span class="eyebrow">Vem aí · Clube Tico-Tico</span>
+
+          <h2>
+            Todo mês, um novo mimo
+            <em>pra você.</em>
+          </h2>
+
+          <p>
+            Seu autocuidado não precisa ser sempre igual.
+            Com o Clube Tico-Tico, a proposta é receber
+            <strong>5 mini produtos todo mês</strong>
+            para descobrir novos favoritos e renovar
+            sua nécessaire.
+          </p>
+
+          <a href="#novidades" class="button button--cream">
+            Quero saber do clube →
+          </a>
+
+        </div>
+
+        <div class="club-visual">
+
+          <div class="club-seal seal seal--sun">
+            <span>5 minis<br>todo mês</span>
+          </div>
+
+          <img
+            class="club-photo"
+            src="assets/clube-cinco-minis.png"
+            alt="Caixa aberta do Clube Tico-Tico com cinco minis sobre papel de seda estampado"
+            loading="lazy"
+          >
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================= -->
+    <!-- PRESENTES                 -->
+    <!-- ========================= -->
+
+    <section class="gift-section section" id="presentes">
+
+      <div class="container gift-layout">
+
+        <img
+          class="gift-image"
+          src="assets/presentes-cinco-minis.png"
+          alt="Nécessaire de tecido Tico-Tico com cinco minis para presentear"
+          loading="lazy"
+        >
+
+        <div class="gift-content">
+
+          <span class="eyebrow">
+            Presente que tem carinho dentro
+          </span>
+
+          <h2>
+            Um presente pequeno.
+            <em>Um sorriso enorme.</em>
+          </h2>
+
+          <p>
+            Para uma amiga, alguém especial ou para você mesma.
+            Também teremos nécessaires prontinhas para presentear,
+            com uma seleção de minis escolhida com carinho.
+          </p>
+
+          <a href="#novidades" class="button button--primary">
+            Quero conhecer os presentes →
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================= -->
+    <!-- NOVIDADES                 -->
+    <!-- ========================= -->
+
+    <section class="newsletter-section section" id="novidades">
+
+      <div class="container newsletter-content">
+
+        <span class="eyebrow">Fica pertinho</span>
+
+        <h2>
+          A Tico-Tico está criando asas.
+          <em>Vem junto?</em>
+        </h2>
+
+        <p>
+          Estamos preparando nossos primeiros kits,
+          os presentes e o Clube Tico-Tico.
+          Deixe seu e-mail e aproveite para compartilhar
+          suas sugestões com a gente.
+        </p>
+
+        <form id="newsletter-form" class="newsletter-form">
+
+          <div class="form-field">
+            <label for="newsletter-email">Seu melhor e-mail</label>
+            <input
+              type="email"
+              id="newsletter-email" maxlength="254"
+              name="email"
+              placeholder="voce@exemplo.com"
+              autocomplete="email"
+              required
+            >
+          </div>
+
+          <div class="form-field">
+            <label for="newsletter-suggestions">
+              Tem alguma sugestão?
+            </label>
+
+            <textarea
+              id="newsletter-suggestions" maxlength="2000"
+              name="suggestions"
+              rows="3"
+              placeholder="Queremos ouvir suas ideias!"
+            ></textarea>
+          </div>
+
+          <button type="submit" class="button button--primary">
+            Tenho interesse →
+          </button>
+
+          <p
+            id="newsletter-feedback"
+            class="form-feedback"
+            role="status"
+            aria-live="polite"
+          ></p>
+
+        </form>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ========================= -->
+  <!-- RODAPÉ                    -->
+  <!-- ========================= -->
+
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+      <div class="footer-brand">
+
+        <img
+          src="assets/tico-tico-nome-vetorizado.svg"
+          alt="Tico-Tico"
+          class="footer-logo"
+        >
+
+        <p>
+          Pequenos cuidados para levar por aí.
+          Do seu jeito, no seu tempo,
+          onde você estiver.
+        </p>
+
+      </div>
+
+      <nav aria-label="Links do rodapé">
+
+        <h3>Explore</h3>
+
+        <a href="#como-funciona">Nossa ideia</a>
+        <a href="#monte">Monte a sua</a>
+        <a href="#clube">Clube Tico-Tico</a>
+
+      </nav>
+
+      <nav aria-label="Mais informações">
+
+        <h3>Descubra</h3>
+
+        <a href="#presentes">Presentes</a>
+        <a href="#novidades">Novidades</a>
+
+      </nav>
+
+    </div>
+
+    <div class="container footer-bottom">
+
+      <p>
+        © <span id="current-year">2026</span>
+        Tico-Tico. Feito para acompanhar você.
+      </p>
+
+      <p>
+        Site em desenvolvimento.
+        Ainda não realizamos vendas.
+      </p>
+
+    </div>
+
+  </footer>
+
+</body>
+</html>

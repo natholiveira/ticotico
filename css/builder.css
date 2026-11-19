@@ -1,0 +1,1804 @@
+
+/* =====================================================
+   TICO-TICO — CONFIGURADOR DE KITS
+   Arquivo: css/builder.css
+
+   Este arquivo estiliza exclusivamente o configurador.
+
+   Dependências:
+   - css/style.css (design tokens e componentes base)
+
+   Etapas:
+   1. Modelo da nécessaire
+   2. Quantidade e tipos de produtos
+   3. Seleção dos produtos
+   4. Carrinho
+   5. Avise-me
+===================================================== */
+
+
+/* =====================================================
+   1. ESTRUTURA GERAL
+===================================================== */
+
+.builder-section {
+    --kit-header-height: 89px;
+    display: flex;
+    min-height: calc(100vh - var(--kit-header-height));
+    min-height: calc(100dvh - var(--kit-header-height));
+    scroll-margin-top: calc(var(--kit-header-height) - 100px);
+    padding: 0;
+    background: #fff;
+  }
+
+  html:has(#monte.in-progress:target),
+  body:has(#monte.in-progress:target) {
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  body:has(#monte.in-progress:target) {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  body:has(#monte.in-progress:target) > .site-header {
+    flex: none;
+  }
+
+  main:has(> #monte.in-progress:target) {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+  }
+
+  main:has(> #monte.in-progress:target) > :not(#monte),
+  body:has(#monte.in-progress:target) > .site-footer {
+    display: none;
+  }
+
+  #monte.in-progress:target {
+    min-height: 0;
+    flex: 1;
+    min-width: 0;
+    height: auto;
+  }
+
+  .builder-section > .container {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  #monte:not(.in-progress:target) .builder-header {
+    display: none;
+  }
+
+  #step-model .builder-step__body {
+    padding-top: clamp(16px, 2vw, 24px);
+    overflow: visible;
+  }
+
+  .builder-header {
+    display: grid;
+    grid-template-columns: 1fr min(64%, 760px) 1fr;
+    align-items: center;
+    flex: none;
+    padding: 10px clamp(8px, 1vw, 18px);
+    color: var(--color-text);
+    background: #fff;
+    border-bottom: 1px solid #e7e4e2;
+  }
+
+  .builder-header h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: start;
+    gap: 0.22em;
+    margin: 0;
+    color: inherit;
+    font-size: 22px;
+    line-height: 1.15;
+    white-space: nowrap;
+  }
+
+  .builder-header h2 > span {
+    transform: translateY(1px);
+  }
+
+  .builder-app {
+    padding-top: 10px;
+    min-height: 0;
+    display: flex;
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+  }
+  
+  /* Apenas a etapa ativa aparece */
+  .builder-step {
+    display: none;
+    width: 100%;
+    min-width: 0;
+  }
+  
+  .builder-step.is-active:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .builder-step__body {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+  }
+
+  #step-products > .builder-step__body {
+    scrollbar-gutter: stable;
+    padding-inline-end: 16px;
+  }
+
+  .builder-step__body > :is(.types-panel, .notify-layout) {
+    min-height: 100%;
+  }
+
+  .builder-step > .builder-actions {
+    flex: none;
+    flex-direction: row;
+    align-items: center;
+    margin: 0;
+    padding-block: 8px;
+  }
+
+  #step-model > .builder-step__body {
+    flex: none;
+  }
+
+  .builder-step[hidden] {
+    display: none !important;
+  }
+  
+  
+  /* =====================================================
+     2. INDICADOR DE PROGRESSO
+  ===================================================== */
+  
+  .builder-progress {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: #625f60;
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+  .builder-progress li {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+  }
+
+  .builder-progress li:not(:last-child) {
+    flex: 1;
+  }
+
+  .builder-progress li::before {
+    content: attr(data-progress);
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 23px;
+    height: 23px;
+    border: 1px solid #a7a2a4;
+    border-radius: 50%;
+    background: white;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .builder-progress li:not(:last-child)::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #b7b2b4;
+    margin-inline: 3px 10px;
+  }
+
+  .builder-progress .is-active {
+    color: var(--color-text);
+    font-weight: 700;
+  }
+
+  .builder-progress .is-active::before {
+    background: var(--color-purple);
+    border-color: var(--color-purple);
+    color: white;
+  }
+
+  @media (max-width: 980px) {
+    .builder-header {
+      grid-template-columns: minmax(0, 760px);
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .builder-header h2 {
+      justify-self: center;
+      font-size: 19px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .builder-header {
+      margin-inline: -18px;
+      padding-inline: 6px;
+    }
+
+    .builder-progress {
+      justify-content: space-around;
+      font-size: clamp(10px, 2.9vw, 12px);
+    }
+
+    .builder-progress li {
+      position: relative;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .builder-progress li:not(:last-child) { flex: none; }
+    .builder-progress li:not(:last-child)::after { display: none; }
+  }
+
+  @media (max-width: 780px) {
+    .builder-section {
+      --kit-header-height: 77px;
+    }
+
+  }
+
+  /* =====================================================
+     3. CABEÇALHO DAS ETAPAS
+  ===================================================== */
+  
+  .builder-step__header {
+    max-width: 800px;
+    margin: 0 auto 16px;
+    text-align: center;
+  }
+  
+  .builder-step__header .eyebrow {
+    color: var(--color-orange);
+  }
+  
+  .builder-step__header h3 {
+    margin: 4px 0;
+  
+    font-size: clamp(22px, 2.5vw, 30px);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.05em;
+  }
+  
+  .builder-step__header p {
+    max-width: 680px;
+    margin: 0 auto;
+  
+    color: var(--color-muted);
+    font-size: 15px;
+    line-height: 1.85;
+  }
+  
+  
+  /* =====================================================
+     4. ETAPA 1 — LAYOUT DO MODELO
+  
+  ===================================================== */
+  
+  .model-layout {
+    display: grid;
+  
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1fr);
+  
+    align-items: stretch;
+    gap: 30px;
+    background: #fff;
+  
+    width: 100%;
+  }
+  
+  /* Coluna esquerda */
+  .model-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+    min-height: 0;
+    color: #fff;
+  }
+
+  .model-preview__image-container {
+    position: relative;
+    flex: 1 0 auto;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #f5e3d8;
+  }
+
+  .model-preview__image-container img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .model-layout:has([data-model="transparente"][aria-pressed="true"]) .model-preview__image-container img {
+    object-fit: cover;
+    transform: scale(0.92);
+    mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent),
+                linear-gradient(to bottom, transparent, black 3%, black 97%, transparent);
+    mask-composite: intersect;
+  }
+
+  /* Texto abaixo da imagem */
+  .model-preview__description {
+    padding: 20px 24px;
+    border-radius: 18px;
+    background: var(--color-purple);
+    color: #fff;
+  }
+
+  .model-preview__description h3 {
+    margin: 0 0 4px;
+  
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.045em;
+  }
+  
+  .model-preview__description p {
+    max-width: 550px;
+    margin: 0;
+  
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  
+  
+  /* =====================================================
+     5. ETAPA 1 — COLUNA DIREITA
+  ===================================================== */
+  
+  .model-selection {
+    display: flex;
+    flex-direction: column;
+  
+    min-width: 0;
+    min-height: 0;
+  
+    padding: 28px 24px;
+  
+    border: 1px solid rgba(48, 35, 31, 0.10);
+    border-radius: 18px;
+  
+    background: #fff;
+  }
+  
+  .model-selection > h3 {
+    margin-bottom: 12px;
+  
+    font-size: 23px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.045em;
+  }
+  
+  .model-selection__prompt {
+    margin: 0 0 26px;
+    font-size: 14px;
+  }
+
+  .model-options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+  
+  .model-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  
+    min-width: 0;
+    padding: 12px 0 0;
+    overflow: hidden;
+  
+    border: 2px solid #DDD0C3;
+    border-radius: 22px;
+  
+    background: #f7e8dc;
+    color: var(--color-text);
+  
+    font-size: 13px;
+    font-weight: 800;
+  
+    transition:
+      border-color var(--transition-fast),
+      background var(--transition-fast),
+      transform var(--transition-fast),
+      box-shadow var(--transition-fast);
+  }
+  
+  .model-option:hover {
+    transform: translateY(-2px);
+  
+    border-color: var(--color-purple);
+  
+    box-shadow: var(--shadow-soft);
+  }
+  
+  .model-option img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: clamp(50px, 9vh, 80px);
+    object-fit: contain;
+    mask-image:
+      linear-gradient(to right, transparent, #000 7%, #000 93%, transparent),
+      linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
+    mask-composite: intersect;
+  }
+
+  .model-option span {
+    align-self: stretch;
+    margin-top: auto;
+    padding: 7px 2px;
+    background: #fff;
+    text-align: center;
+  }
+  
+  /* Modelo selecionado */
+  .model-option.is-selected,
+  .model-option[aria-pressed="true"] {
+    border-color: var(--color-purple);
+  
+  
+    box-shadow:
+      0 0 0 3px rgba(106, 59, 102, 0.10);
+  }
+  
+  
+  /* =====================================================
+     6. ETAPA 1 — MODOS DE MONTAGEM
+  ===================================================== */
+  
+  .model-selection > .model-selection__subtitle {
+    margin: 28px 0 16px;
+  
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+  }
+  
+  .assembly-modes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+  
+  .assembly-mode {
+    position: relative;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  
+    width: 100%;
+    padding: 16px 14px;
+  
+    border: 2px solid #DDD0C3;
+    border-radius: 10px;
+  
+    background: white;
+    color: var(--color-text);
+  
+    text-align: left;
+  
+    transition:
+      border-color var(--transition-fast),
+      background var(--transition-fast);
+  }
+  
+  .assembly-mode strong {
+    font-size: 13px;
+    font-weight: 800;
+  }
+  
+  .assembly-mode span {
+    max-width: 440px;
+  
+    color: var(--color-muted);
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  
+  .assembly-mode.is-selected,
+  .assembly-mode[aria-pressed="true"] {
+    border-color: var(--color-green);
+    background: var(--color-green-light);
+  }
+  
+  .assembly-mode:disabled {
+    opacity: 0.68;
+    cursor: not-allowed;
+  }
+  
+  .assembly-mode small {
+    display: inline-flex;
+    align-items: center;
+  
+    padding: 5px 10px;
+  
+    border-radius: var(--radius-pill);
+  
+    background: var(--color-purple-light);
+    color: var(--color-purple);
+  
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  
+  
+  /* =====================================================
+     7. NAVEGAÇÃO ENTRE ETAPAS
+  ===================================================== */
+  
+  .builder-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+  
+    margin-top: 36px;
+  }
+  
+  .builder-actions:has(.kit-exit) {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .kit-exit + .button {
+    margin-left: auto;
+  }
+
+  .builder-actions--end {
+    justify-content: flex-end;
+    margin-top: auto;
+    padding-top: 14px;
+  }
+  
+  .builder-actions .button {
+    min-width: 150px;
+  }
+  
+  
+  /* =====================================================
+     8. ETAPA 2 — SELETOR DE QUANTIDADE
+  ===================================================== */
+  
+  .types-panel {
+    width: 100%;
+    margin-inline: auto;
+    padding: clamp(12px, 1.4vw, 22px);
+    border: 1px solid var(--color-border);
+    border-radius: 20px;
+    background: #fff;
+  }
+
+  .types-panel h3,
+  .types-panel h4 {
+    margin: 0 0 8px;
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  .quantity-selector {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 20px;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  #step-types > .builder-actions,
+  #step-types > .builder-alert {
+    width: 100%;
+    margin-inline: auto;
+  }
+
+  .choice-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  
+  .choice-button {
+    min-width: 0;
+    padding: 8px 16px;
+  
+    border: 2px solid #CCBDB1;
+    border-radius: 6px;
+  
+    background: white;
+    color: var(--color-text);
+  
+    font-size: 14px;
+    font-weight: 800;
+  
+    transition:
+      background var(--transition-fast),
+      border-color var(--transition-fast),
+      color var(--transition-fast);
+  }
+  
+  .choice-button:hover {
+    border-color: var(--color-purple);
+  }
+  
+  .choice-button.is-selected,
+  .choice-button[aria-pressed="true"] {
+    border-color: var(--color-purple);
+    background: var(--color-purple);
+    color: white;
+  }
+  
+  
+  /* =====================================================
+     9. ETAPA 2 — TIPOS E CATEGORIAS
+  ===================================================== */
+  
+  .type-selector__heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px 12px;
+    margin-bottom: 8px;
+  }
+
+  .type-selector__heading h4 { margin: 0; }
+  .type-selector__heading .product-counter { margin-left: auto; }
+
+  .types-instruction {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 14px;
+  }
+
+  .type-selector > .types-instruction {
+    margin-bottom: 16px;
+  }
+
+  .type-groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 285px), 1fr));
+    gap: 12px;
+  }
+
+  .type-group {
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: white;
+    overflow-wrap: anywhere;
+  }
+
+  .type-group__header {
+    margin-bottom: 12px;
+  }
+
+  .product-card__title,
+  .cart-item__name,
+  .builder-header h2,
+  #step-model-title {
+    font-family: var(--font-body);
+    font-weight: 400;
+    letter-spacing: normal;
+  }
+
+  #step-model-title {
+    font-weight: 700;
+  }
+
+  .type-group__title {
+    margin: 0;
+    font-size: 21px;
+    line-height: 1.2;
+    color: var(--color-purple);
+  }
+
+  .type-group__description {
+    margin: 4px 0 0;
+    color: var(--color-muted);
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .type-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .type-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    max-width: 100%;
+    min-width: 0;
+    padding: 7px 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 9px;
+    background: #fff;
+    color: var(--color-text);
+    font-size: 13px;
+    line-height: 1.4;
+    text-align: left;
+  }
+
+  .type-option__label {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .type-option:hover:not(:disabled) {
+    border-color: var(--color-green);
+  }
+  
+  .type-option.is-selected,
+  .type-option[aria-pressed="true"] {
+    border-color: var(--color-green);
+    background: var(--color-green-light);
+  }
+  
+  .type-option.is-selected::after,
+  .type-option[aria-pressed="true"]::after {
+    content: "✓";
+    margin-left: auto;
+  
+    color: var(--color-green);
+    font-weight: 800;
+  }
+  
+  .type-option:disabled {
+    opacity: 0.45;
+  }
+  
+  .type-option__icon {
+    flex-shrink: 0;
+  
+    display: grid;
+    place-items: center;
+  
+    width: 20px;
+    height: 20px;
+    padding-left: 1px;
+  
+    border-radius: 50%;
+  
+    background: var(--color-purple);
+    color: white;
+  
+    font-size: 12px;
+    line-height: 1;
+  }
+
+  .type-option[data-category="make"] .type-option__icon {
+    padding-left: 0;
+  }
+
+  .type-option[data-category="care"] .type-option__icon {
+    padding: 2px 0 0;
+  }
+  
+  
+  /* =====================================================
+     10. ALERTAS — ROXO DESTACADO
+  
+     Utilizado quando:
+     - Limite de tipos é atingido
+     - Limite de unidades é atingido
+     - Necessário informar uma seleção
+  ===================================================== */
+  
+  .builder-alert {
+    margin-top: 24px;
+    padding: 22px 26px;
+  
+    border: 2px solid transparent;
+    border-radius: 22px;
+  
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.65;
+  }
+  
+  .builder-alert--purple {
+    border-color: var(--color-purple);
+    background: #EBD8E9;
+    color: var(--color-purple-dark);
+  
+    box-shadow:
+      0 8px 22px rgba(106, 59, 102, 0.12);
+  }
+  
+  .builder-alert--purple::before {
+    content: "✦";
+  
+    margin-right: 10px;
+  
+    color: var(--color-purple);
+    font-size: 19px;
+  }
+  
+  
+  /* =====================================================
+     11. ETAPA 3 — BARRA DE CATEGORIAS
+  ===================================================== */
+  
+  .product-toolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .category-tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 3px;
+  }
+
+  .category-tab {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  
+    min-height: 49px;
+    padding: 13px 23px;
+  
+    border: 2px solid #D3C3B6;
+    border-radius: 6px;
+  
+    background: #fff;
+    color: var(--color-text);
+  
+    font-size: 13px;
+    font-weight: 800;
+  
+    transition:
+      background var(--transition-fast),
+      color var(--transition-fast),
+      border-color var(--transition-fast);
+  }
+  
+  .category-tab:hover {
+    border-color: var(--color-purple);
+  }
+  
+  .category-tab.is-active,
+  .category-tab[aria-pressed="true"] {
+    border-color: var(--color-purple);
+    background: var(--color-purple);
+    color: white;
+  }
+  
+  
+  /* =====================================================
+     12. ETAPA 3 — CONTADOR
+  ===================================================== */
+  
+  .product-counter {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    padding-block: 12px;
+    color: var(--color-muted);
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  .product-counter strong {
+    font-size: 17px;
+    font-weight: 800;
+  }
+  
+  
+  /* =====================================================
+     13. ETAPA 3 — GRADE DE PRODUTOS
+  ===================================================== */
+  
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+  
+    width: 100%;
+  }
+  
+  .product-card {
+    position: relative;
+  
+    display: flex;
+    flex-direction: column;
+  
+    min-width: 0;
+    height: 100%;
+  
+    padding: 16px;
+  
+    border: 1px solid #dedbd8;
+    border-radius: 8px;
+  
+    background: #fff;
+  
+    transition: border-color var(--transition-fast);
+  }
+
+  .product-card:hover,
+  .product-card.is-selected,
+  .product-card--selected {
+    border-color: #aaa29f;
+  }
+
+  .product-card__image {
+    position: relative;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    width: 100%;
+    aspect-ratio: 1 / 1;
+  
+    padding: 14px;
+    margin-bottom: 15px;
+  
+    overflow: hidden;
+  
+    border-radius: 17px;
+  
+    background: #fff;
+  }
+  
+  .product-card__image img {
+    width: 100%;
+    height: 100%;
+  
+    object-fit: contain;
+  
+    transition: transform var(--transition-normal);
+  }
+  
+  .product-card:hover .product-card__image img {
+    transform: scale(1.035);
+  }
+  
+  .product-card__info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  .product-card__brand {
+    margin-bottom: 6px;
+  
+    color: var(--color-orange);
+  
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  
+  .product-card__title {
+    margin: 0 0 12px;
+  
+    font-size: 20px;
+    line-height: 1.3;
+  }
+  
+  .product-card__description {
+    margin-bottom: 15px;
+  
+    color: var(--color-muted);
+    font-size: 12px;
+    line-height: 1.65;
+  }
+  
+  .product-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  
+    margin-top: auto;
+  }
+  
+  .product-card__footer > * {
+    width: 100%;
+    height: 44px;
+  }
+
+  .product-card__add {
+    padding: 0 12px;
+  
+    border: 1px solid var(--color-green);
+    border-radius: 6px;
+  
+    background: var(--color-green);
+    color: white;
+  
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  .product-card__add:hover:not(:disabled) {
+    background: #3C532D;
+  }
+  
+  .product-card__add:disabled {
+    opacity: 0.45;
+  }
+  
+  
+  /* =====================================================
+     14. CONTROLES DE QUANTIDADE
+  ===================================================== */
+  
+  .product-card__quantity,
+  .quantity-control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  
+    padding: 5px;
+  
+    border: 1px solid #C5D4B7;
+    border-radius: var(--radius-pill);
+  
+    background: var(--color-green-light);
+  }
+  
+  .product-card__quantity {
+    border-radius: 6px;
+    justify-content: space-between;
+    padding: 0 4px;
+    background: var(--color-green);
+    border-color: var(--color-green);
+    color: white;
+  }
+
+  .product-card__quantity .product-card__quantity-value {
+    color: inherit;
+  }
+
+  .product-card__quantity-button,
+  .quantity-control__button {
+    display: grid;
+    place-items: center;
+  
+    width: 30px;
+    height: 30px;
+  
+    border: none;
+    border-radius: 50%;
+  
+    background: var(--color-green);
+    color: white;
+  
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  
+  .product-card__quantity-button:hover:not(:disabled),
+  .quantity-control__button:hover:not(:disabled) {
+    background: #3C532D;
+  }
+  
+  .product-card__quantity-button:disabled,
+  .quantity-control__button:disabled {
+    opacity: 0.38;
+  }
+  
+  .product-card__quantity-value,
+  .quantity-control__value {
+    min-width: 18px;
+  
+    color: var(--color-green);
+  
+    font-size: 14px;
+    font-weight: 800;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+  
+  
+  /* =====================================================
+     15. PAGINAÇÃO
+  ===================================================== */
+  
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 9px;
+  
+    margin-top: 35px;
+  }
+  
+  .pagination-button {
+    display: grid;
+    place-items: center;
+  
+    min-width: 43px;
+    height: 43px;
+    padding: 0 12px;
+  
+    border: 1px solid #D0C1B4;
+    border-radius: 50%;
+  
+    background: white;
+    color: var(--color-text);
+  
+    font-size: 13px;
+    font-weight: 800;
+  }
+  
+  .pagination-button:hover:not(:disabled) {
+    border-color: var(--color-purple);
+  }
+  
+  .pagination-button.is-active,
+  .pagination-button[aria-current="page"] {
+    border-color: var(--color-purple);
+    background: var(--color-purple);
+    color: white;
+  }
+  
+  .pagination-button:disabled {
+    opacity: 0.35;
+  }
+  
+  
+  /* =====================================================
+     16. ETAPA 4 — CARRINHO
+  ===================================================== */
+  
+  #step-cart > .builder-step__body {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  #step-cart .builder-step__header { flex: none; }
+
+  .cart-layout {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(300px, 0.65fr);
+    grid-template-rows: minmax(0, 1fr);
+    align-items: start;
+    gap: 24px;
+  }
+
+  .cart-items {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    padding-inline-end: 12px;
+  }
+
+  .cart-category {
+    flex: none;
+    overflow: hidden;
+
+    border: 1px solid var(--color-border);
+    border-radius: 26px;
+  
+    background: #fff;
+  }
+  
+  .cart-category__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    padding: 18px 24px;
+  
+    background: #fff;
+    border-bottom: 1px solid var(--color-border);
+  }
+  
+  .cart-category__header h4 {
+    margin: 0;
+  
+    color: var(--color-purple);
+  
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+  }
+  
+  .cart-category__items {
+    padding: 8px 24px;
+  }
+  
+  .cart-item {
+    --cart-thumbnail-size: 64px;
+    display: grid;
+    grid-template-columns: var(--cart-thumbnail-size) minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 20px;
+  
+    padding: 20px 0;
+  
+    border-bottom: 1px solid #EAE0D5;
+  }
+  
+  .cart-item:last-child {
+    border-bottom: none;
+  }
+  
+  .cart-item__image {
+    width: var(--cart-thumbnail-size);
+    height: var(--cart-thumbnail-size);
+    overflow: hidden;
+    padding: 4px;
+  
+    border-radius: 16px;
+  
+    background: #fff;
+  }
+  
+  .cart-item__image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  
+    object-fit: contain;
+  }
+  
+  .cart-item__info {
+    min-width: 0;
+  }
+  
+  .cart-item__brand {
+    margin: 0 0 4px;
+  
+    color: var(--color-orange);
+  
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  
+  .cart-item__name {
+    margin: 0;
+  
+    font-size: 20px;
+    line-height: 1.3;
+  }
+  
+  .cart-item__type {
+    margin: 5px 0 0;
+  
+    color: var(--color-muted);
+    font-size: 12px;
+  }
+  
+  .cart-item__quantity {
+    font-size: 13px;
+    font-weight: 800;
+    white-space: nowrap;
+  
+    color: var(--color-green);
+  }
+  
+  
+  /* =====================================================
+     17. RESUMO DO CARRINHO
+  ===================================================== */
+  
+  .cart-summary {
+    align-self: start;
+  
+    padding: 22px 30px;
+  
+    border: 1px solid var(--color-border);
+    border-radius: 28px;
+  
+    background: #fff;
+  
+    box-shadow: 0 1px 3px rgba(48, 35, 31, 0.05);
+  }
+  
+  .cart-summary h4 {
+    margin-bottom: 18px;
+  
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+  }
+  
+  .cart-summary__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+  
+    padding-block: 12px;
+  
+    border-bottom: 1px solid #E6DACE;
+  
+    font-size: 13px;
+  }
+  
+  .cart-summary__model {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .cart-summary__photo {
+    flex: none;
+    width: 80px;
+    height: 64px;
+    padding: 4px;
+    border-radius: 10px;
+    background: white;
+    object-fit: contain;
+  }
+
+  .cart-summary__row span {
+    color: var(--color-muted);
+  }
+  
+  .cart-summary__row strong {
+    text-align: right;
+    font-size: 14px;
+    font-weight: 800;
+  
+    color: var(--color-text);
+  }
+  
+  .cart-summary__model strong {
+    text-align: left;
+  }
+
+  .cart-summary__note {
+    margin: 18px 0 0;
+  
+    color: var(--color-muted);
+    font-size: 12px;
+    line-height: 1.75;
+  }
+  
+  
+  /* =====================================================
+     18. ETAPA 5 — AVISE-ME
+  ===================================================== */
+  
+  .notify-layout {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: start;
+    gap: clamp(16px, 3vw, 40px);
+  
+    padding: clamp(14px, 2vw, 28px);
+  
+    border: 1px solid var(--color-border);
+    border-radius: 34px;
+  
+    background: #fff;
+  }
+  
+  .notify-intro .eyebrow {
+    color: var(--color-orange);
+  }
+  
+  .notify-intro h3 {
+    margin: 20px 0;
+  
+    font-size: clamp(34px, 3.8vw, 52px);
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.05em;
+  }
+  
+  .notify-intro p {
+    margin-bottom: 20px;
+  
+    color: var(--color-muted);
+    font-size: 14px;
+    line-height: 1.85;
+  }
+  
+  .notify-form {
+    align-self: stretch;
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  
+    padding: clamp(14px, 2vw, 24px);
+  
+    border: 1px solid var(--color-border);
+    border-radius: 25px;
+  
+    background: white;
+  }
+  
+  .notify-form .form-field input,
+  .notify-form .form-field textarea {
+    background: #fff;
+    padding-block: 10px;
+  }
+
+  .notify-form .form-field textarea {
+    min-height: 84px;
+  }
+
+  .notify-form .form-feedback:empty {
+    position: absolute;
+    min-height: 0;
+  }
+
+  .notify-form .button {
+    align-self: flex-start;
+  }
+  
+  @media (min-width: 851px) and (max-height: 740px) {
+    .notify-layout,
+    .notify-form {
+      padding-block: 16px;
+    }
+  }
+
+  @media (max-width: 850px), (max-height: 740px) {
+    .notify-form {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-content: start;
+      gap: 8px 12px;
+      padding: 12px;
+    }
+
+    .notify-form > :nth-child(n+3) { grid-column: 1 / -1; }
+    .notify-form .button { justify-self: start; }
+    .notify-form .form-field { min-width: 0; gap: 4px; }
+    .notify-form .form-field textarea { min-height: 64px; }
+  }
+
+  .form-note {
+    margin: 0;
+  
+    color: #82756D;
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  
+  
+  /* =====================================================
+     19. RESPONSIVIDADE — TABLET
+  ===================================================== */
+  
+  @media (max-width: 1100px) {
+  
+  
+    .model-layout {
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 22px;
+    }
+  
+  
+  
+    .products-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+  
+    .cart-layout {
+      grid-template-columns: 1.4fr 0.8fr;
+    }
+  
+  }
+  
+  
+  /* =====================================================
+     20. RESPONSIVIDADE — TABLET PEQUENO
+  ===================================================== */
+  
+  @media (max-width: 850px) {
+  
+    .model-layout {
+      grid-template-columns: 1fr;
+    }
+  
+    .model-preview {
+      display: grid;
+      grid-template-columns: minmax(0, 42%) minmax(0, 1fr);
+      height: auto;
+    }
+
+    .model-preview__description { align-self: end; }
+
+    .model-preview__image-container {
+      align-self: center;
+    }
+
+  
+    .products-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  
+    .cart-layout {
+      grid-template-rows: minmax(0, 1fr) auto;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+    }
+  
+  
+    .cart-summary {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      gap: 4px 12px;
+    }
+
+    .cart-summary h4,
+    .cart-summary__note { grid-column: 1 / -1; }
+
+    .cart-summary__model { grid-row: span 2; }
+    .cart-summary__photo { width: 48px; height: 38px; }
+    .cart-items { padding-inline-end: 8px; }
+
+    .notify-layout {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr;
+      gap: 10px;
+      padding: 12px;
+    }
+
+    .notify-intro h3 { margin: 5px 0 8px; font-size: clamp(22px, 4vw, 32px); }
+    .notify-intro p { margin: 4px 0; line-height: 1.4; }
+    .notify-form .form-note { line-height: 1.4; }
+  
+  }
+  
+  
+  @media (max-width: 580px) and (max-height: 740px) {
+    #step-notify .notify-layout { padding: 8px; gap: 6px; }
+    .notify-intro .eyebrow, .notify-intro p:not(.notify-intro__compact) { display: none; }
+    .notify-intro .notify-intro__compact[hidden] { display: block !important; }
+    .notify-intro h3 { font-size: 19px; margin: 0; }
+    .notify-form { padding: 8px; gap: 5px 8px; }
+    .notify-form .form-field :is(input, textarea) { padding: 6px 9px; }
+    .notify-form .form-field textarea { height: 48px; min-height: 48px; }
+    .notify-form .button { min-height: 40px; padding-block: 8px; }
+  }
+
+  /* =====================================================
+     21. RESPONSIVIDADE — MOBILE
+  ===================================================== */
+  
+  @media (max-width: 580px) {
+  
+  
+    .builder-step__header h3 {
+      font-size: 24px;
+    }
+  
+    .model-layout { gap: 20px; }
+    .model-preview { grid-template-columns: 1fr; gap: 16px; }
+    .model-selection__prompt { margin-bottom: 22px; }
+    .model-selection > .model-selection__subtitle { margin-top: 24px; }
+    .model-selection, .model-preview__description { padding: 20px 16px; }
+    .model-preview__description { padding-bottom: 20px; }
+    .model-preview__description h3 { font-size: 18px; }
+    .model-preview__description p { font-size: 12px; }
+    .model-options, .assembly-modes { gap: 10px; }
+    .model-option { padding: 6px 0 0; gap: 4px; border-radius: 10px; }
+    .model-option span { font-size: 11px; }
+
+    /* Quantidades */
+  
+  
+    .choice-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 7px;
+    }
+  
+    .choice-button {
+      min-width: 0;
+      padding: 12px 9px;
+  
+      font-size: 11px;
+    }
+  
+    /* Categorias */
+  
+  
+    /* Produtos */
+    .products-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+  
+    .product-card {
+      padding: 10px;
+    }
+  
+    .product-card__image {
+      padding: 8px;
+      border-radius: 12px;
+    }
+  
+    .product-card__title {
+      font-size: 17px;
+    }
+  
+    .product-card__description {
+      font-size: 11px;
+    }
+  
+    .product-card__quantity,
+    .quantity-control {
+      gap: 7px;
+    }
+  
+    .product-card__quantity-button,
+    .quantity-control__button {
+      width: 26px;
+      height: 26px;
+    }
+  
+    .product-toolbar {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+    }
+    .category-tabs { flex-wrap: wrap; overflow: visible; }
+    .type-selector__heading .product-counter,
+    .product-toolbar .product-counter {
+      width: 100%;
+      text-align: left;
+    }
+    .category-tab { padding: 8px 12px; min-height: 40px; }
+    .product-counter { padding-block: 8px; font-size: 11px; }
+    .product-counter strong { font-size: 14px; }
+  
+    /* Carrinho */
+    #step-cart > .builder-step__body {
+      display: block;
+      overflow-y: auto;
+      padding-inline-end: 6px;
+    }
+    .cart-layout { grid-template-rows: auto auto; gap: 16px; }
+    #step-cart .cart-summary {
+      grid-row: 1;
+      margin-block: 12px;
+      padding-block: 24px;
+      row-gap: 10px;
+    }
+    .cart-items { overflow: visible; scrollbar-gutter: auto; padding: 0; }
+
+    .cart-category__items {
+      padding-inline: 15px;
+    }
+  
+    .cart-item {
+      --cart-thumbnail-size: 52px;
+      grid-template-columns: var(--cart-thumbnail-size) minmax(0, 1fr);
+      gap: 12px;
+    }
+  
+  
+    .cart-item__name {
+      font-size: 17px;
+    }
+  
+    .cart-item__quantity {
+      grid-column: 2;
+    }
+  
+
+  
+    #step-notify .notify-layout {
+      padding-block: 36px 28px;
+      gap: 22px;
+    }
+    .notify-form {
+      grid-template-columns: minmax(0, 1fr);
+      padding-block: 22px;
+      row-gap: 16px;
+    }
+    #step-notify textarea { min-height: 80px; }
+    .notify-form .button {
+      margin-top: 8px;
+      width: 100%;
+    }
+
+    /* Botões inferiores */
+    .builder-actions {
+      flex-direction: column-reverse;
+      align-items: stretch;
+      gap: 12px;
+    }
+  
+    .builder-actions .button {
+      padding-inline: 12px;
+      min-width: 0;
+      width: auto;
+    }
+  
+  }
+
+
+  @media (max-width: 850px), (max-height: 800px) {
+    .cart-summary { padding: 12px 16px; }
+    .cart-summary h4 { margin-bottom: 4px; font-size: 20px; }
+    .cart-summary__row { padding-block: 4px; gap: 4px; }
+    .cart-summary__note { margin-top: 4px; line-height: 1.35; }
+  }
+  
+
+  @media (max-width: 580px) and (max-height: 740px) {
+    #step-cart .builder-step__header { margin-bottom: 6px; }
+    #step-cart .builder-step__header h3 { margin: 2px 0; font-size: 18px; }
+    #step-cart .builder-step__header p { font-size: 13px; line-height: 1.3; }
+    #step-cart .builder-actions { gap: 4px; padding-block: 4px; }
+    #step-cart .builder-actions .button {
+      min-height: 40px;
+      padding: 7px 8px;
+      font-size: 12px;
+    }
+    .cart-summary { padding: 8px 12px; gap: 2px 8px; }
+    .cart-summary__row { padding-block: 2px; }
+    .cart-summary h4 { font-size: 18px; }
+  }
